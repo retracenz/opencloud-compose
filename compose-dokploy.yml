@@ -3,3 +3,39 @@ include:
   - weboffice/collabora.yml
   - external-proxy/opencloud.yml
   - external-proxy/collabora-exposed.yml
+
+services:
+  opencloud:
+    networks:
+      opencloud-net:
+      dokploy-network:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.oc-cloud.rule=Host(`cloud.lab.cllab.nz`)"
+      - "traefik.http.routers.oc-cloud.entrypoints=websecure"
+      - "traefik.http.routers.oc-cloud.tls.certresolver=letsencrypt"
+      - "traefik.http.services.oc-cloud.loadbalancer.server.port=9200"
+      - "traefik.http.routers.oc-cloud-web.rule=Host(`cloud.lab.cllab.nz`)"
+      - "traefik.http.routers.oc-cloud-web.entrypoints=web"
+      - "traefik.http.routers.oc-cloud-web.middlewares=redirect-to-https@file"
+
+  collabora:
+    networks:
+      opencloud-net:
+      dokploy-network:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.oc-collabora.rule=Host(`collabora.lab.cllab.nz`)"
+      - "traefik.http.routers.oc-collabora.entrypoints=websecure"
+      - "traefik.http.routers.oc-collabora.tls.certresolver=letsencrypt"
+      - "traefik.http.services.oc-collabora.loadbalancer.server.port=9980"
+      - "traefik.http.routers.oc-collabora-web.rule=Host(`collabora.lab.cllab.nz`)"
+      - "traefik.http.routers.oc-collabora-web.entrypoints=web"
+      - "traefik.http.routers.oc-collabora-web.middlewares=redirect-to-https@file"
+
+networks:
+  opencloud-net:
+  dokploy-network:
+    external: true
