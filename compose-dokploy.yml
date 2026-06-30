@@ -1,16 +1,9 @@
 include:
   - docker-compose.yml
-  - weboffice/collabora.yml
   - external-proxy/opencloud.yml
-  - external-proxy/collabora-exposed.yml
 
 services:
   opencloud:
-    networks:
-      opencloud-net:
-      dokploy-network:
-
-  collabora:
     networks:
       opencloud-net:
       dokploy-network:
