@@ -14,6 +14,10 @@ services:
     networks:
       opencloud-net:
       dokploy-network:
+      
+volumes:
+  opencloud-config:
+  opencloud-data:
 
 networks:
   opencloud-net:
