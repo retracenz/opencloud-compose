@@ -1,6 +1,7 @@
 include:
   - docker-compose.yml
   - external-proxy/opencloud.yml
+  - idm/external-idp.yml
 
 services:
   opencloud:
