@@ -1,18 +1,19 @@
 include:
     - docker-compose.yml
     - external-proxy/opencloud.yml
+    - idm/ldap-keycloak.yml
 
 services:
     opencloud:
         networks:
             opencloud-net:
-            dokploy-network:
 
 volumes:
     opencloud-config:
     opencloud-data:
+    keycloak_postgres_data:
+    ldap-certs:
+    ldap-data:
 
 networks:
     opencloud-net:
-    dokploy-network:
-        external: true
